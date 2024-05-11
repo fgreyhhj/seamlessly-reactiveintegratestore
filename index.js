@@ -1,16 +1,14 @@
-function reverseBetween(head, m, n) {
-  if (!head || m === n) return head;
-  const dummy = new ListNode(0);
-  dummy.next = head;
-  let prev = dummy;
-  for (let i = 0; i < m - 1; i++) prev = prev.next;
-  let start = prev.next;
-  let then = start.next;
-  for (let i = 0; i < n - m; i++) {
-    start.next = then.next;
-    then.next = prev.next;
-    prev.next = then;
-    then = start.next;
-  }
-  return dummy.next;
+function rob(nums) {
+  if (nums.length === 1) return nums[0];
+  const robRange = (start, end) => {
+    let prevMax = 0;
+    let currMax = 0;
+    for (let i = start; i <= end; i++) {
+      const temp = currMax;
+      currMax = Math.max(currMax, prevMax + nums[i]);
+      prevMax = temp;
+    }
+    return currMax;
+  };
+  return Math.max(robRange(0, nums.length - 2), robRange(1, nums.length - 1));
 }
