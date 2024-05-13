@@ -1,15 +1,9 @@
-function isValidBST(root) {
-  const stack = [];
-  let inorder = -Infinity;
-  while (stack.length || root) {
-    while (root) {
-      stack.push(root);
-      root = root.left;
-    }
-    root = stack.pop();
-    if (root.val <= inorder) return false;
-    inorder = root.val;
-    root = root.right;
+function canJump(nums) {
+  let maxJump = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (i > maxJump) return false;
+    maxJump = Math.max(maxJump, i + nums[i]);
+    if (maxJump >= nums.length - 1) return true;
   }
-  return true;
+  return false;
 }
